@@ -3,25 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Encuesta de Experiencia Urozen</title>
-  <!-- Fuente Google Font -->
+  <title>Buzón Queremos Escucharte - Urozen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Iconos Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Librería para eliminar el encabezado de github.io en los mensajes -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     :root {
-      --primary-orange: #ff6800;
-      --primary-orange-hover: #e05b00;
-      --bg-orange-light: #fff5ed;
-      --border-color: #ebdcd0;
-      --card-bg: #ffffff;
-      --text-dark: #2c2c2c;
-      --text-muted: #666666;
-      --gray-bg: #f5f5f7;
-      --radius: 12px;
+      --primary-orange: #ffa924;
+      --primary-orange-hover: #ff9d0a;
+      --card-bg-light: #fffaf2;
+      --text-dark: #2c3138;
+      --line-gray: #444444;
     }
 
     * {
@@ -40,326 +37,279 @@
       padding: 20px;
     }
 
-    /* Marco simulando la tablet */
-    .tablet-frame {
+    .outer-container {
       background-color: #ffffff;
+      padding: 16px;
+      border-radius: 8px;
       width: 100%;
-      max-width: 820px;
-      border-radius: 28px;
-      padding: 32px 36px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      position: relative;
+      max-width: 640px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
-    /* Cabecera */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--primary-orange);
-      margin-bottom: 24px;
-    }
-
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-u {
-      color: var(--primary-orange);
-      font-size: 38px;
-      font-weight: 800;
-    }
-
-    .logo-text {
-      color: #383b42;
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    .header-tagline {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: right;
-    }
-
-    .tagline-text {
-      font-size: 14px;
-      color: var(--text-dark);
-      line-height: 1.2;
-    }
-
-    .tagline-text span {
-      color: var(--primary-orange);
-      font-weight: 700;
-      display: block;
-      font-size: 16px;
-    }
-
-    .header-heart {
-      color: var(--primary-orange);
-      font-size: 28px;
-    }
-
-    /* Titulo Principal */
-    .survey-title {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text-dark);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .survey-title span {
-      color: var(--primary-orange);
-    }
-
-    .survey-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .highlight-text {
-      color: var(--primary-orange);
-      font-weight: 700;
-    }
-
-    /* Tarjetas de Pregunta */
-    .question-card {
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      background-color: var(--card-bg);
-    }
-
-    .question-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .badge-number {
-      background-color: var(--primary-orange);
-      color: white;
-      font-weight: 700;
-      font-size: 14px;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .question-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.3;
-    }
-
-    /* Grilla de opciones */
-    .options-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .options-5 {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-    .options-4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    /* Responsividad para pantallas pequeñas */
-    @media (max-width: 600px) {
-      .options-5, .options-4 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .inputs-grid {
-        grid-template-columns: 1fr !important;
-      }
-    }
-
-    .option-btn {
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
+    .sheet-card {
       background-color: #ffffff;
-      padding: 10px 8px;
+      border: 2px solid var(--primary-orange);
+      padding: 12px 28px 0 28px;
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
+    }
+
+    .header-logo-row {
+      display: flex;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: center;
-      user-select: none;
-    }
-
-    .option-btn i {
-      font-size: 22px;
-      color: var(--primary-orange);
-    }
-
-    .option-btn .label-num {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    .option-btn .label-text {
-      font-size: 12px;
-      color: var(--text-dark);
-      font-weight: 500;
-    }
-
-    .option-btn:hover {
-      border-color: var(--primary-orange);
-      background-color: var(--bg-orange-light);
-    }
-
-    .option-btn.selected {
-      border-color: var(--primary-orange);
-      background-color: var(--bg-orange-light);
-      box-shadow: 0 0 0 2px var(--primary-orange);
-    }
-
-    .option-btn-row {
-      flex-direction: row;
-      justify-content: flex-start;
-      padding: 10px 14px;
-      gap: 10px;
-    }
-
-    .option-btn-row span {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    /* Campo de Texto Pregunta 5 */
-    .textarea-container {
-      position: relative;
-    }
-
-    .textarea-container i {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      color: var(--primary-orange);
-      font-size: 18px;
-    }
-
-    .textarea-field {
-      width: 100%;
-      height: 70px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px 12px 12px 42px;
-      font-size: 13px;
-      resize: none;
-      outline: none;
-    }
-
-    .textarea-field:focus {
-      border-color: var(--primary-orange);
-    }
-
-    /* Bloque Datos Opcionales */
-    .optional-block {
-      background-color: var(--gray-bg);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin-bottom: 20px;
-    }
-
-    .optional-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
+      gap: 20px;
+      margin-top: 0;
       margin-bottom: 12px;
     }
 
-    .optional-header i {
+    .brand-logo-img {
+      width: 200px;
+      height: auto;
+      max-height: 280px;
+      display: block;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-divider {
+      width: 2px;
+      height: 75px;
+      background-color: #f0e0cc;
+      flex-shrink: 0;
+    }
+
+    .header-title-text {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+
+    .header-title-text span {
+      color: var(--primary-orange);
+      display: block;
+    }
+
+    .tagline-container {
+      text-align: center;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .heart-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 6px;
+      width: 100%;
+    }
+
+    .heart-divider::before, .heart-divider::after {
+      content: '';
+      width: 110px;
+      height: 1px;
+      background-color: #ffe1b3;
+    }
+
+    .heart-divider i {
       color: var(--primary-orange);
       font-size: 20px;
     }
 
-    .inputs-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
+    .tagline-text {
+      font-size: 15px;
+      color: var(--text-dark);
+      font-weight: 500;
+      max-width: 320px;
+      line-height: 1.35;
+      text-align: center;
     }
 
-    .input-wrapper {
-      position: relative;
+    .section-block {
+      background-color: var(--card-bg-light);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
     }
 
-    .input-wrapper i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--primary-orange);
-      font-size: 16px;
+    .block-question {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 14px;
     }
 
-    .input-field {
-      width: 100%;
-      border: 1px solid #dcdce0;
-      border-radius: 20px;
-      padding: 10px 14px 10px 40px;
-      font-size: 13px;
-      outline: none;
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 22px;
+      align-items: center;
+    }
+
+    .custom-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      user-select: none;
+    }
+
+    .check-box {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--primary-orange);
+      border-radius: 3px;
       background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
     }
 
-    .checkbox-label {
+    .check-box i {
+      color: var(--primary-orange);
+      font-size: 14px;
+      display: none;
+    }
+
+    .custom-check.selected .check-box i {
+      display: block;
+    }
+
+    .other-line-input {
+      border: none;
+      border-bottom: 1px solid var(--line-gray);
+      background: transparent;
+      outline: none;
+      padding: 2px 6px;
+      font-size: 14px;
+      width: 170px;
+      color: var(--text-dark);
+    }
+
+    .cuentanos-section {
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .cuentanos-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .notebook-textarea {
+      width: 100%;
+      height: 105px;
+      background: repeating-linear-gradient(
+        transparent,
+        transparent 34px,
+        var(--line-gray) 34px,
+        var(--line-gray) 35px
+      );
+      line-height: 35px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      color: var(--text-dark);
+      resize: none;
+      padding-top: 2px;
+    }
+
+    .contact-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 12px;
+      margin-bottom: 14px;
+      padding: 0 4px;
+    }
+
+    .contact-icon {
+      color: var(--primary-orange);
+      font-size: 22px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .contact-label {
+      font-size: 13px;
+      font-weight: 700;
       color: var(--text-dark);
-      cursor: pointer;
+      white-space: nowrap;
     }
 
-    .checkbox-label input {
-      accent-color: var(--primary-orange);
-      width: 16px;
-      height: 16px;
+    .contact-input {
+      flex: 1;
+      border: none;
+      border-bottom: 1px solid var(--line-gray);
+      outline: none;
+      padding: 2px 6px;
+      font-size: 14px;
+      color: var(--text-dark);
+      background: transparent;
     }
 
-    /* Botón Enviar */
+    .thanks-divider-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 6px;
+      margin-bottom: 4px;
+    }
+
+    .thanks-divider-row::before, .thanks-divider-row::after {
+      content: '';
+      width: 80px;
+      height: 1px;
+      background-color: #ffe1b3;
+    }
+
+    .thanks-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      color: var(--primary-orange);
+      font-weight: 700;
+    }
+
+    .footer-subtext {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+    }
+
     .submit-btn {
       width: 100%;
       background-color: var(--primary-orange);
       color: white;
       border: none;
-      border-radius: 24px;
-      padding: 14px;
-      font-size: 18px;
+      border-radius: 20px;
+      padding: 12px;
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
+      margin-bottom: 20px;
       transition: background 0.2s;
     }
 
@@ -367,250 +317,159 @@
       background-color: var(--primary-orange-hover);
     }
 
-    .submit-btn:disabled {
-      background-color: #cccccc;
-      cursor: not-allowed;
-    }
-
-    .footer-msg {
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-dark);
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .footer-msg i {
-      color: var(--primary-orange);
+    .orange-bottom-wave {
+      background-color: var(--primary-orange);
+      height: 28px;
+      margin-left: -28px;
+      margin-right: -28px;
+      border-top-left-radius: 50% 12px;
+      border-top-right-radius: 50% 12px;
+      margin-top: auto;
     }
   </style>
 </head>
 <body>
 
-  <div class="tablet-frame">
-    <!-- Header -->
-    <header class="header">
-      <div class="brand-logo">
-        <span class="logo-u">U</span>
-        <span class="logo-text">urozen</span>
-      </div>
-      <div class="header-tagline">
-        <div class="tagline-text">
-          <span>Tu opinión</span>
-          nos ayuda a mejorar
+  <div class="outer-container">
+    <div class="sheet-card">
+      
+      <header class="header-logo-row">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4pI2kuU9yHfcqSTVqU8MeASVw43HQEog4uiZv-ZfouhW_Tww0uZ6ujZ1B&s=10" alt="Logo Urozen" class="brand-logo-img">
+        <div class="header-divider"></div>
+        <div class="header-title-text">
+          QUEREMOS <span>ESCUCHARTE</span>
         </div>
-        <i class="fa-regular fa-heart header-heart"></i>
-      </div>
-    </header>
+      </header>
 
-    <!-- Encabezado encuesta -->
-    <section>
-      <h1 class="survey-title">TU EXPERIENCIA EN <span>UROZEN</span></h1>
-      <p class="survey-subtitle">Queremos conocer cómo fue tu experiencia con nosotros. Esta encuesta es <span class="highlight-text">breve y voluntaria</span>.</p>
-    </section>
-
-    <form id="surveyForm">
-      <!-- Pregunta 1 -->
-      <div class="question-card">
-        <div class="question-header">
-          <span class="badge-number">1</span>
-          <h2 class="question-title">¿Cómo calificarías tu experiencia general en Urozen?</h2>
+      <div class="tagline-container">
+        <div class="heart-divider">
+          <i class="fa-regular fa-heart"></i>
         </div>
-        <div class="options-grid options-5" id="q1">
-          <div class="option-btn" data-value="1">
-            <i class="fa-regular fa-star"></i>
-            <span class="label-num">1</span>
-            <span class="label-text">Muy mala</span>
-          </div>
-          <div class="option-btn" data-value="2">
-            <i class="fa-regular fa-star"></i>
-            <span class="label-num">2</span>
-            <span class="label-text">Mala</span>
-          </div>
-          <div class="option-btn" data-value="3">
-            <i class="fa-regular fa-star"></i>
-            <span class="label-num">3</span>
-            <span class="label-text">Regular</span>
-          </div>
-          <div class="option-btn" data-value="4">
-            <i class="fa-regular fa-star"></i>
-            <span class="label-num">4</span>
-            <span class="label-text">Buena</span>
-          </div>
-          <div class="option-btn" data-value="5">
-            <i class="fa-regular fa-star"></i>
-            <span class="label-num">5</span>
-            <span class="label-text">Muy buena</span>
-          </div>
-        </div>
+        <p class="tagline-text">Tu opinión nos ayuda a seguir mejorando cada día.</p>
       </div>
 
-      <!-- Pregunta 2 -->
-      <div class="question-card">
-        <div class="question-header">
-          <span class="badge-number">2</span>
-          <h2 class="question-title">Durante tu atención, ¿te sentiste escuchado(a), comprendido(a) y tratado(a) con amabilidad?</h2>
+      <form id="buzonForm">
+        <div class="section-block">
+          <h2 class="block-question">¿Qué deseas compartir con nosotros?</h2>
+          <div class="checkbox-group" id="groupCompartir">
+            <div class="custom-check" data-value="Sugerencia">
+              <div class="check-box"><i class="fa-solid fa-check"></i></div>
+              <span>Sugerencia</span>
+            </div>
+            <div class="custom-check" data-value="Comentario">
+              <div class="check-box"><i class="fa-solid fa-check"></i></div>
+              <span>Comentario</span>
+            </div>
+            <div class="custom-check" data-value="Felicitación">
+              <div class="check-box"><i class="fa-solid fa-check"></i></div>
+              <span>Felicitación</span>
+            </div>
+            <div class="custom-check" data-value="Otro" id="checkOtro">
+              <div class="check-box"><i class="fa-solid fa-check"></i></div>
+              <span>Otro:</span>
+              <input type="text" class="other-line-input" id="inputOtro" disabled>
+            </div>
+          </div>
         </div>
-        <div class="options-grid options-4" id="q2">
-          <div class="option-btn option-btn-row" data-value="Siempre">
-            <i class="fa-regular fa-face-smile"></i>
-            <span>Siempre</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="Casi siempre">
-            <i class="fa-regular fa-face-smile-beam"></i>
-            <span>Casi siempre</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="Algunas veces">
-            <i class="fa-regular fa-face-meh"></i>
-            <span>Algunas veces</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="No">
-            <i class="fa-regular fa-face-frown"></i>
-            <span>No</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Pregunta 3 -->
-      <div class="question-card">
-        <div class="question-header">
-          <span class="badge-number">3</span>
-          <h2 class="question-title">¿La información e indicaciones que recibiste fueron claras y fáciles de comprender?</h2>
+        <div class="cuentanos-section">
+          <h2 class="cuentanos-title">Cuéntanos:</h2>
+          <textarea class="notebook-textarea" id="cuentanosText" required></textarea>
         </div>
-        <div class="options-grid options-4" id="q3">
-          <div class="option-btn option-btn-row" data-value="Sí, completamente">
-            <i class="fa-regular fa-circle-check"></i>
-            <span>Sí, completamente</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="En su mayoría">
-            <i class="fa-regular fa-circle-check"></i>
-            <span>En su mayoría</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="Poco">
-            <i class="fa-regular fa-comment-dots"></i>
-            <span>Poco</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="No">
-            <i class="fa-regular fa-circle-xmark"></i>
-            <span>No</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Pregunta 4 -->
-      <div class="question-card">
-        <div class="question-header">
-          <span class="badge-number">4</span>
-          <h2 class="question-title">¿Sentiste que tu atención consideró tus necesidades de manera integral, más allá del motivo específico de tu consulta?</h2>
-        </div>
-        <div class="options-grid options-4" id="q4">
-          <div class="option-btn option-btn-row" data-value="Sí, completamente">
-            <i class="fa-regular fa-heart"></i>
-            <span>Sí, completamente</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="En parte">
-            <i class="fa-solid fa-circle-half-stroke"></i>
-            <span>En parte</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="No">
-            <i class="fa-regular fa-circle-xmark"></i>
-            <span>No</span>
-          </div>
-          <div class="option-btn option-btn-row" data-value="No podría evaluarlo">
-            <i class="fa-regular fa-circle-question"></i>
-            <span>No podría evaluarlo</span>
+        <div class="section-block">
+          <h2 class="block-question">¿Deseas que nos comuniquemos contigo?</h2>
+          <div class="checkbox-group" id="groupContacto">
+            <div class="custom-check" data-value="Sí">
+              <div class="check-box"><i class="fa-solid fa-check"></i></div>
+              <span>Sí</span>
+            </div>
+            <div class="custom-check" data-value="No">
+              <div class="check-box"><i class="fa-solid fa-check"></i></div>
+              <span>No</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Pregunta 5 -->
-      <div class="question-card">
-        <div class="question-header">
-          <span class="badge-number">5</span>
-          <h2 class="question-title">¿Hay algo que quieras comentarnos sobre tu experiencia o algo que podríamos mejorar?</h2>
+        <div class="contact-row">
+          <i class="fa-regular fa-user contact-icon"></i>
+          <label class="contact-label" for="nombreInput">Nombre (opcional):</label>
+          <input type="text" class="contact-input" id="nombreInput">
         </div>
-        <div class="textarea-container">
-          <i class="fa-regular fa-comment"></i>
-          <textarea class="textarea-field" id="q5_comment" placeholder="Escribe aquí tu comentario (opcional)"></textarea>
-        </div>
-      </div>
 
-      <!-- Datos Opcionales -->
-      <div class="optional-block">
-        <div class="optional-header">
-          <i class="fa-solid fa-user-gear"></i>
-          <span>Tus datos son opcionales. Si deseas identificarte o permitirnos contactarte respecto de tu comentario:</span>
+        <div class="contact-row">
+          <i class="fa-solid fa-phone contact-icon"></i>
+          <label class="contact-label" for="celularInput">Celular / WhatsApp (opcional):</label>
+          <input type="tel" class="contact-input" id="celularInput">
         </div>
-        <div class="inputs-grid">
-          <div class="input-wrapper">
-            <i class="fa-regular fa-user"></i>
-            <input type="text" class="input-field" id="nombre" placeholder="Nombre y apellido (opcional)">
-          </div>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-phone"></i>
-            <input type="tel" class="input-field" id="celular" placeholder="Celular (opcional)">
-          </div>
+
+        <div class="thanks-divider-row">
+          <span class="thanks-text">¡Gracias!</span>
         </div>
-        <label class="checkbox-label">
-          <input type="checkbox" id="autorizacion">
-          <span>Autorizo que Urozen se comunique conmigo respecto de lo señalado en esta encuesta.</span>
-        </label>
-      </div>
+        <div class="footer-subtext">Tu opinión hace la diferencia.</div>
 
-      <!-- Botón de envío -->
-      <button type="submit" class="submit-btn" id="btnSubmit">
-        <i class="fa-solid fa-paper-plane"></i>
-        ENVIAR
-      </button>
-    </form>
+        <button type="submit" class="submit-btn" id="btnSubmit">
+          <i class="fa-solid fa-paper-plane"></i> ENVIAR RESPUESTA
+        </button>
+      </form>
 
-    <div class="footer-msg">
-      <i class="fa-regular fa-heart"></i>
-      <span>¡Gracias por ayudarnos a mejorar! Tu opinión hace la diferencia.</span>
+      <div class="orange-bottom-wave"></div>
     </div>
   </div>
 
   <script>
-    // URL de tu Google Apps Script
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJun1CsoFbZR0q5r01HqVRzKUnHkb0BLjEmbqs4uJ4ADfXhr9itRg_GKdLQlrvF5OPXg/exec';
 
-    // Almacenamiento de respuestas seleccionadas
-    const answers = {
-      q1: null,
-      q2: null,
-      q3: null,
-      q4: null
-    };
+    let tipoMensaje = null;
+    let deseaContacto = null;
 
-    // Lógica para seleccionar botones por pregunta
-    function setupQuestionGroup(groupId) {
-      const container = document.getElementById(groupId);
-      const buttons = container.querySelectorAll('.option-btn');
+    const compartirChecks = document.querySelectorAll('#groupCompartir .custom-check');
+    const inputOtro = document.getElementById('inputOtro');
 
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          buttons.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          answers[groupId] = btn.getAttribute('data-value');
-        });
+    compartirChecks.forEach(check => {
+      check.addEventListener('click', (e) => {
+        if (e.target === inputOtro) return;
+
+        compartirChecks.forEach(c => c.classList.remove('selected'));
+        check.classList.add('selected');
+        
+        const val = check.getAttribute('data-value');
+        if (val === 'Otro') {
+          inputOtro.disabled = false;
+          inputOtro.focus();
+          tipoMensaje = 'Otro';
+        } else {
+          inputOtro.disabled = true;
+          inputOtro.value = '';
+          tipoMensaje = val;
+        }
       });
-    }
+    });
 
-    setupQuestionGroup('q1');
-    setupQuestionGroup('q2');
-    setupQuestionGroup('q3');
-    setupQuestionGroup('q4');
+    const contactoChecks = document.querySelectorAll('#groupContacto .custom-check');
+    contactoChecks.forEach(check => {
+      check.addEventListener('click', () => {
+        contactoChecks.forEach(c => c.classList.remove('selected'));
+        check.classList.add('selected');
+        deseaContacto = check.getAttribute('data-value');
+      });
+    });
 
-    // Manejo del evento de envío
-    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    document.getElementById('buzonForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Validación: Requerir al menos la pregunta 1
-      if (!answers.q1) {
-        alert('Por favor, selecciona una calificación en la pregunta 1.');
+      let valorFinalTipo = tipoMensaje;
+      if (tipoMensaje === 'Otro' && inputOtro.value.trim() !== '') {
+        valorFinalTipo = 'Otro: ' + inputOtro.value.trim();
+      }
+
+      if (!valorFinalTipo) {
+        Swal.fire({
+          title: 'Atención',
+          text: 'Por favor selecciona qué deseas compartir con nosotros.',
+          icon: 'warning',
+          confirmButtonColor: '#ffa924'
+        });
         return;
       }
 
@@ -619,45 +478,49 @@
       submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ENVIANDO...';
 
       const formData = {
-        experienciaGeneral: answers.q1,
-        tratoAmabilidad: answers.q2,
-        informacionClara: answers.q3,
-        atencionIntegral: answers.q4,
-        comentario: document.getElementById('q5_comment').value,
-        nombre: document.getElementById('nombre').value,
-        celular: document.getElementById('celular').value,
-        autorizaContacto: document.getElementById('autorizacion').checked
+        formType: 'buzon',
+        tipoMensaje: valorFinalTipo,
+        cuentanos: document.getElementById('cuentanosText').value,
+        deseaContacto: deseaContacto || 'No especificado',
+        nombre: document.getElementById('nombreInput').value,
+        celular: document.getElementById('celularInput').value
       };
 
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
       .then(() => {
-        alert('¡Muchas gracias! Tus respuestas se han registrado correctamente.');
+        /* Mensaje de confirmación sin la URL de GitHub arriba */
+        Swal.fire({
+          title: '¡Muchas gracias!',
+          text: 'Tus comentarios se han registrado correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#ffa924',
+          confirmButtonText: 'Aceptar'
+        });
         
-        // Limpiar el formulario para la siguiente persona
-        document.getElementById('surveyForm').reset();
-        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
-        answers.q1 = null;
-        answers.q2 = null;
-        answers.q3 = null;
-        answers.q4 = null;
-
-        // Desplazarse al inicio
+        document.getElementById('buzonForm').reset();
+        document.querySelectorAll('.custom-check').forEach(c => c.classList.remove('selected'));
+        inputOtro.disabled = true;
+        tipoMensaje = null;
+        deseaContacto = null;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       })
-      .catch(error => {
-        console.error('Error al enviar:', error);
-        alert('Ocurrió un error al registrar tu respuesta. Por favor intenta de nuevo.');
+      .catch(err => {
+        console.error(err);
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrió un error al enviar. Por favor reintenta.',
+          icon: 'error',
+          confirmButtonColor: '#ffa924'
+        });
       })
       .finally(() => {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ENVIAR';
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ENVIAR RESPUESTA';
       });
     });
   </script>
