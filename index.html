@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Experiencia Urozen</title>
+  <!-- Fuente Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Iconos Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-orange: #ff6800;
+      --primary-orange-hover: #e05b00;
+      --bg-orange-light: #fff5ed;
+      --border-color: #ebdcd0;
+      --card-bg: #ffffff;
+      --text-dark: #2c2c2c;
+      --text-muted: #666666;
+      --gray-bg: #f5f5f7;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Marco simulando la tablet */
+    .tablet-frame {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 820px;
+      border-radius: 28px;
+      padding: 32px 36px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    /* Cabecera */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary-orange);
+      margin-bottom: 24px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-u {
+      color: var(--primary-orange);
+      font-size: 38px;
+      font-weight: 800;
+    }
+
+    .logo-text {
+      color: #383b42;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .header-tagline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: right;
+    }
+
+    .tagline-text {
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+
+    .tagline-text span {
+      color: var(--primary-orange);
+      font-weight: 700;
+      display: block;
+      font-size: 16px;
+    }
+
+    .header-heart {
+      color: var(--primary-orange);
+      font-size: 28px;
+    }
+
+    /* Titulo Principal */
+    .survey-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .survey-title span {
+      color: var(--primary-orange);
+    }
+
+    .survey-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .highlight-text {
+      color: var(--primary-orange);
+      font-weight: 700;
+    }
+
+    /* Tarjetas de Pregunta */
+    .question-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      background-color: var(--card-bg);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .badge-number {
+      background-color: var(--primary-orange);
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .question-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    /* Grilla de opciones */
+    .options-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .options-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .options-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Responsividad para pantallas pequeñas */
+    @media (max-width: 600px) {
+      .options-5, .options-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .inputs-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    .option-btn {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      user-select: none;
+    }
+
+    .option-btn i {
+      font-size: 22px;
+      color: var(--primary-orange);
+    }
+
+    .option-btn .label-num {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .option-btn .label-text {
+      font-size: 12px;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary-orange);
+      background-color: var(--bg-orange-light);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary-orange);
+      background-color: var(--bg-orange-light);
+      box-shadow: 0 0 0 2px var(--primary-orange);
+    }
+
+    .option-btn-row {
+      flex-direction: row;
+      justify-content: flex-start;
+      padding: 10px 14px;
+      gap: 10px;
+    }
+
+    .option-btn-row span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* Campo de Texto Pregunta 5 */
+    .textarea-container {
+      position: relative;
+    }
+
+    .textarea-container i {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: var(--primary-orange);
+      font-size: 18px;
+    }
+
+    .textarea-field {
+      width: 100%;
+      height: 70px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 12px 12px 42px;
+      font-size: 13px;
+      resize: none;
+      outline: none;
+    }
+
+    .textarea-field:focus {
+      border-color: var(--primary-orange);
+    }
+
+    /* Bloque Datos Opcionales */
+    .optional-block {
+      background-color: var(--gray-bg);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+
+    .optional-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .optional-header i {
+      color: var(--primary-orange);
+      font-size: 20px;
+    }
+
+    .inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-orange);
+      font-size: 16px;
+    }
+
+    .input-field {
+      width: 100%;
+      border: 1px solid #dcdce0;
+      border-radius: 20px;
+      padding: 10px 14px 10px 40px;
+      font-size: 13px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      accent-color: var(--primary-orange);
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Botón Enviar */
+    .submit-btn {
+      width: 100%;
+      background-color: var(--primary-orange);
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-orange-hover);
+    }
+
+    .submit-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    .footer-msg {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dark);
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .footer-msg i {
+      color: var(--primary-orange);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tablet-frame">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand-logo">
+        <span class="logo-u">U</span>
+        <span class="logo-text">urozen</span>
+      </div>
+      <div class="header-tagline">
+        <div class="tagline-text">
+          <span>Tu opinión</span>
+          nos ayuda a mejorar
+        </div>
+        <i class="fa-regular fa-heart header-heart"></i>
+      </div>
+    </header>
+
+    <!-- Encabezado encuesta -->
+    <section>
+      <h1 class="survey-title">TU EXPERIENCIA EN <span>UROZEN</span></h1>
+      <p class="survey-subtitle">Queremos conocer cómo fue tu experiencia con nosotros. Esta encuesta es <span class="highlight-text">breve y voluntaria</span>.</p>
+    </section>
+
+    <form id="surveyForm">
+      <!-- Pregunta 1 -->
+      <div class="question-card">
+        <div class="question-header">
+          <span class="badge-number">1</span>
+          <h2 class="question-title">¿Cómo calificarías tu experiencia general en Urozen?</h2>
+        </div>
+        <div class="options-grid options-5" id="q1">
+          <div class="option-btn" data-value="1">
+            <i class="fa-regular fa-star"></i>
+            <span class="label-num">1</span>
+            <span class="label-text">Muy mala</span>
+          </div>
+          <div class="option-btn" data-value="2">
+            <i class="fa-regular fa-star"></i>
+            <span class="label-num">2</span>
+            <span class="label-text">Mala</span>
+          </div>
+          <div class="option-btn" data-value="3">
+            <i class="fa-regular fa-star"></i>
+            <span class="label-num">3</span>
+            <span class="label-text">Regular</span>
+          </div>
+          <div class="option-btn" data-value="4">
+            <i class="fa-regular fa-star"></i>
+            <span class="label-num">4</span>
+            <span class="label-text">Buena</span>
+          </div>
+          <div class="option-btn" data-value="5">
+            <i class="fa-regular fa-star"></i>
+            <span class="label-num">5</span>
+            <span class="label-text">Muy buena</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 2 -->
+      <div class="question-card">
+        <div class="question-header">
+          <span class="badge-number">2</span>
+          <h2 class="question-title">Durante tu atención, ¿te sentiste escuchado(a), comprendido(a) y tratado(a) con amabilidad?</h2>
+        </div>
+        <div class="options-grid options-4" id="q2">
+          <div class="option-btn option-btn-row" data-value="Siempre">
+            <i class="fa-regular fa-face-smile"></i>
+            <span>Siempre</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="Casi siempre">
+            <i class="fa-regular fa-face-smile-beam"></i>
+            <span>Casi siempre</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="Algunas veces">
+            <i class="fa-regular fa-face-meh"></i>
+            <span>Algunas veces</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="No">
+            <i class="fa-regular fa-face-frown"></i>
+            <span>No</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 3 -->
+      <div class="question-card">
+        <div class="question-header">
+          <span class="badge-number">3</span>
+          <h2 class="question-title">¿La información e indicaciones que recibiste fueron claras y fáciles de comprender?</h2>
+        </div>
+        <div class="options-grid options-4" id="q3">
+          <div class="option-btn option-btn-row" data-value="Sí, completamente">
+            <i class="fa-regular fa-circle-check"></i>
+            <span>Sí, completamente</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="En su mayoría">
+            <i class="fa-regular fa-circle-check"></i>
+            <span>En su mayoría</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="Poco">
+            <i class="fa-regular fa-comment-dots"></i>
+            <span>Poco</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="No">
+            <i class="fa-regular fa-circle-xmark"></i>
+            <span>No</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 4 -->
+      <div class="question-card">
+        <div class="question-header">
+          <span class="badge-number">4</span>
+          <h2 class="question-title">¿Sentiste que tu atención consideró tus necesidades de manera integral, más allá del motivo específico de tu consulta?</h2>
+        </div>
+        <div class="options-grid options-4" id="q4">
+          <div class="option-btn option-btn-row" data-value="Sí, completamente">
+            <i class="fa-regular fa-heart"></i>
+            <span>Sí, completamente</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="En parte">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+            <span>En parte</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="No">
+            <i class="fa-regular fa-circle-xmark"></i>
+            <span>No</span>
+          </div>
+          <div class="option-btn option-btn-row" data-value="No podría evaluarlo">
+            <i class="fa-regular fa-circle-question"></i>
+            <span>No podría evaluarlo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pregunta 5 -->
+      <div class="question-card">
+        <div class="question-header">
+          <span class="badge-number">5</span>
+          <h2 class="question-title">¿Hay algo que quieras comentarnos sobre tu experiencia o algo que podríamos mejorar?</h2>
+        </div>
+        <div class="textarea-container">
+          <i class="fa-regular fa-comment"></i>
+          <textarea class="textarea-field" id="q5_comment" placeholder="Escribe aquí tu comentario (opcional)"></textarea>
+        </div>
+      </div>
+
+      <!-- Datos Opcionales -->
+      <div class="optional-block">
+        <div class="optional-header">
+          <i class="fa-solid fa-user-gear"></i>
+          <span>Tus datos son opcionales. Si deseas identificarte o permitirnos contactarte respecto de tu comentario:</span>
+        </div>
+        <div class="inputs-grid">
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" class="input-field" id="nombre" placeholder="Nombre y apellido (opcional)">
+          </div>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" class="input-field" id="celular" placeholder="Celular (opcional)">
+          </div>
+        </div>
+        <label class="checkbox-label">
+          <input type="checkbox" id="autorizacion">
+          <span>Autorizo que Urozen se comunique conmigo respecto de lo señalado en esta encuesta.</span>
+        </label>
+      </div>
+
+      <!-- Botón de envío -->
+      <button type="submit" class="submit-btn" id="btnSubmit">
+        <i class="fa-solid fa-paper-plane"></i>
+        ENVIAR
+      </button>
+    </form>
+
+    <div class="footer-msg">
+      <i class="fa-regular fa-heart"></i>
+      <span>¡Gracias por ayudarnos a mejorar! Tu opinión hace la diferencia.</span>
+    </div>
+  </div>
+
+  <script>
+    // URL de tu Google Apps Script
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJun1CsoFbZR0q5r01HqVRzKUnHkb0BLjEmbqs4uJ4ADfXhr9itRg_GKdLQlrvF5OPXg/exec';
+
+    // Almacenamiento de respuestas seleccionadas
+    const answers = {
+      q1: null,
+      q2: null,
+      q3: null,
+      q4: null
+    };
+
+    // Lógica para seleccionar botones por pregunta
+    function setupQuestionGroup(groupId) {
+      const container = document.getElementById(groupId);
+      const buttons = container.querySelectorAll('.option-btn');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          answers[groupId] = btn.getAttribute('data-value');
+        });
+      });
+    }
+
+    setupQuestionGroup('q1');
+    setupQuestionGroup('q2');
+    setupQuestionGroup('q3');
+    setupQuestionGroup('q4');
+
+    // Manejo del evento de envío
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Validación: Requerir al menos la pregunta 1
+      if (!answers.q1) {
+        alert('Por favor, selecciona una calificación en la pregunta 1.');
+        return;
+      }
+
+      const submitBtn = document.getElementById('btnSubmit');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ENVIANDO...';
+
+      const formData = {
+        experienciaGeneral: answers.q1,
+        tratoAmabilidad: answers.q2,
+        informacionClara: answers.q3,
+        atencionIntegral: answers.q4,
+        comentario: document.getElementById('q5_comment').value,
+        nombre: document.getElementById('nombre').value,
+        celular: document.getElementById('celular').value,
+        autorizaContacto: document.getElementById('autorizacion').checked
+      };
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(() => {
+        alert('¡Muchas gracias! Tus respuestas se han registrado correctamente.');
+        
+        // Limpiar el formulario para la siguiente persona
+        document.getElementById('surveyForm').reset();
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        answers.q1 = null;
+        answers.q2 = null;
+        answers.q3 = null;
+        answers.q4 = null;
+
+        // Desplazarse al inicio
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        console.error('Error al enviar:', error);
+        alert('Ocurrió un error al registrar tu respuesta. Por favor intenta de nuevo.');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ENVIAR';
+      });
+    });
+  </script>
+</body>
+</html>
